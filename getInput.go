@@ -1,20 +1,37 @@
 package main
 import (
 	"fmt"
-	"string"
+	"strings"
 	"bufio"
 	"os"
 	"strconv"
 )
 
-func getInput() (int, *float64) {
+func getInput(s string) (id int, value *float64) {
+	var v float64
 	reader := bufio.NewReader(os.Stdin)
-	input, err := reader.ReadString('\n')
+	str, err := reader.ReadString('\n')
 	if err != nil {
 		fmt.Println("Error reading input:", err)
-		return
+		panic(err)
 	}
-	input = strings.TrimSpace(input)
-	input = strings.Split(input, ',')
-	id := 
+	str = strings.TrimSpace(str)
+	input := strings.Split(str, ",")
+	id, _ = strconv.Atoi(input[0])
+	if input[1] == "NULL" {
+		value = nil
+	} else {
+		_, err  := fmt.Sscanf(input[1], "%g",&v)
+		if err != nil {
+			panic(err)
+		}
+		value = &v
+	}
+	return id, value
+}
+
+func main() {
+	s := "11,15.5"
+	id, value := getInput(s)
+	fmt.Println("id, value: ", id, value)
 }
