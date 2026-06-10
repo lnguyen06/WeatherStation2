@@ -17,21 +17,15 @@ func getInput(s string) (id int, value *float64) {
 	}
 	str = strings.TrimSpace(str)
 	input := strings.Split(str, ",")
-	id, _ = strconv.Atoi(input[0])
+	id, _ = strconv.ParseInt(input[0], 10, 64)
 	if input[1] == "NULL" {
 		value = nil
 	} else {
-		_, err  := fmt.Sscanf(input[1], "%g",&v)
+		_, err := fmt.Sscanf(input[1], "%g",&v)
 		if err != nil {
 			panic(err)
 		}
 		value = &v
 	}
 	return id, value
-}
-
-func main() {
-	s := "11,15.5"
-	id, value := getInput(s)
-	fmt.Println("id, value: ", id, value)
 }
